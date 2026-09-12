@@ -11,14 +11,14 @@ export async function passwordHash(password: string, salt: string) {
 export function equal(a: string, b: string) { let diff = a.length ^ b.length; for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ (b.charCodeAt(i) || 0); return diff === 0; }
 export function json(data: unknown, status = 200, headers: Record<string, string> = {}) { return Response.json(data, { status, headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers } }); }
 export async function body(req: Request) {
+ const raw = await req.text(); if (raw.length > 10000) throw new HttpError(413, 'This request is too large.');
  if (req.headers.get('x-questbound') !== '1') throw new HttpError(403, 'Please use Questbound to make this change.');
  const origin = req.headers.get('origin');
  if (origin && origin !== new URL(req.url).origin) throw new HttpError(403, 'This request came from another website.');
  if (!req.headers.get('content-type')?.startsWith('application/json')) throw new HttpError(415, 'JSON is required.');
- const raw = await req.text(); if (raw.length > 10000) throw new HttpError(413, 'This request is too large.');
  try { const value = JSON.parse(raw); if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(); return value; } catch { throw new HttpError(400, 'Invalid request.'); }
 }
-export async function guard(fn: () => Promise<Response>) { try { return await fn(); } catch(e) { if (e instanceof HttpError) return json({error:e.message},e.status); console.error('Questbound request failed:', e instanceof Error ? e.message : 'unknown'); return json({error:'Your journal could not be updated. Please try again.'},503); } }
+export async function guard(fn: () => Promise<Response>, req?: Request) { try { return await fn(); } catch(e) { if(req?.body && !req.bodyUsed) { try { await req.text(); } catch {} } if (e instanceof HttpError) return json({error:e.message},e.status); console.error('Questbound request failed:', e instanceof Error ? e.message : 'unknown'); return json({error:'Your journal could not be updated. Please try again.'},503); } }
 export async function user(req: Request) {
  const token = /(?:^|;\s*)qb_session=([^;]+)/.exec(req.headers.get('cookie') || '')?.[1];
  if (!token) throw new HttpError(401,'Sign in to open your journal.');
@@ -54,3 +54,5 @@ export async function state(u: any) {
  const today=dayInZone(u.timezone);
  return {user:{id:u.id,name:u.name,email:u.email,timezone:u.timezone,theme:u.theme,badge:u.badge},tasks,history,inventory,shop,xp,gold:earned-spent,progression:progression(xp),streak:streakFromDays(history.map(r=>r.day),today),today,attributes:Object.fromEntries(categories.map(c=>[c,history.filter(r=>r.category===c).reduce((s,r)=>s+r.xp,0)]))};
 }
+
+

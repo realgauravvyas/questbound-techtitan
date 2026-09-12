@@ -9,7 +9,7 @@ export async function POST(req: Request) { return guard(async()=> {
  ON CONFLICT(user_id,item_id) DO NOTHING`).bind(crypto.randomUUID(),u.id,item.id,item.price,new Date().toISOString(),u.id,u.id,item.price).run();
  if(!result.meta.changes) { const owned=await db().prepare('SELECT id FROM purchases WHERE user_id=? AND item_id=?').bind(u.id,item.id).first(); if(!owned) throw new HttpError(409,'You need more gold to unlock this reward.'); }
  return json(await state(u));
- }); }
+ },req); }
 export async function PATCH(req: Request) { return guard(async()=> {
  const u=await user(req), v=await body(req);
  if(v.itemId==='daylight') { await db().prepare('UPDATE users SET theme=? WHERE id=?').bind('daylight',u.id).run(); return json(await state({...u,theme:'daylight'})); }
@@ -18,4 +18,5 @@ export async function PATCH(req: Request) { return guard(async()=> {
  const field=item.kind==='theme'?'theme':'badge';
  await db().prepare(`UPDATE users SET ${field}=? WHERE id=?`).bind(item.id,u.id).run();
  return json(await state({...u,[field]:item.id}));
- }); }
+ },req); }
+

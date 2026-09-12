@@ -9,4 +9,5 @@ export async function POST(req: Request) { return guard(async()=> {
  WHERE id=? AND user_id=? AND deleted=0 ON CONFLICT(task_id) DO NOTHING`).bind(crypto.randomUUID(),dayInZone(u.timezone),new Date().toISOString(),String(v.id),u.id).run();
  if(!result.meta.changes) { const existing=await db().prepare('SELECT id FROM completions WHERE task_id=? AND user_id=?').bind(String(v.id),u.id).first(); if(!existing) throw new HttpError(404,'Quest not found.'); }
  return json(await state(u));
- }); }
+ },req); }
+

@@ -3,7 +3,7 @@ export async function POST(req: Request) { return guard(async () => {
  const v = await body(req);
  if (v.action === 'logout') {
   const token = /(?:^|;\s*)qb_session=([^;]+)/.exec(req.headers.get('cookie') || '')?.[1];
-  if(token) await db().prepare('DELETE FROM sessions WHERE token=?').bind(await hash(token)).run();
+  if(token) await db().prepare('UPDATE sessions SET expires_at=0 WHERE token=?').bind(await hash(token)).run();
   return json({ok:true},200,{'Set-Cookie':'qb_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0'});
  }
  if (!['signup','login'].includes(v.action)) throw new HttpError(400,'Invalid action.');
@@ -27,4 +27,6 @@ export async function POST(req: Request) { return guard(async () => {
   if(!u || !equal(candidate,u.password)) throw new HttpError(401,'Email or password is incorrect.');
  }
  return json({ok:true},200,{'Set-Cookie':await newSession(u.id,req)});
- }); }
+ },req); }
+
+
