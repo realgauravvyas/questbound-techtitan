@@ -12,14 +12,15 @@ Turn daily intentions into quests. Earn experience and gold, grow four character
 
 ## Submission
 
-**Release status:** Local app and deliverables are ready. The following public URLs are planned; hosting and GitHub publication await explicit owner approval. They are not yet judge-accessible.
-
 - **Problem:** Life RPG, the official Round 1 Web Hackathon brief.
-- **Planned live application:** https://questbound-techtitan.tender-elm-5517.chatgpt.site
-- **Planned repository:** https://github.com/realgauravvyas/questbound-techtitan
-- **Illustration video:** [TechTitan video](media/TechTitan_video_web.mp4)
+- **Repository:** https://github.com/realgauravvyas/questbound-techtitan
+- **Live application:** not yet publicly reachable. The existing Sites deployment at `questbound-techtitan.tender-elm-5517.chatgpt.site` currently answers `401 Sign in required`, so it is not judge-accessible. See [Deployment](#deployment) for how to publish a public URL; this line will carry that URL once it is live.
+- **Demonstration video:** [TechTitan video](media/TechTitan_video_web.mp4) (2:35, 6.15 MB)
+- **Run it yourself:** [Run locally](#run-locally) — a clean clone needs only Node.js and npm, with no API key or paid account.
 - [System architecture and security decisions](docs/ARCHITECTURE.md)
 - [Video narration and workflow](docs/DEMO-SCRIPT.md)
+- [Verification report](docs/VERIFICATION.md)
+- [Artwork provenance](docs/ASSETS.md)
 
 ## What works
 
@@ -46,7 +47,7 @@ node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1
 npm start -- --port 5173
 ```
 
-Until publication, extract the supplied source ZIP and begin the commands at npm ci from that folder. Open the local address printed by the server (normally http://127.0.0.1:5173). Create your own account. Run the migration once on a fresh local database; do not replay it on an existing database. Local SQLite data lives in `.wrangler/state`, which is excluded from Git.
+Open the local address printed by the server (normally http://127.0.0.1:5173). Create your own account. Run the migration once on a fresh local database; do not replay it on an existing database. Local SQLite data lives in `.wrangler/state`, which is excluded from Git.
 
 `.env.example` explains the configuration. The app needs a `DB` D1 binding, supplied by the local runtime or hosting platform. It does **not** use a browser-only database or a hardcoded shared user.
 
@@ -95,6 +96,22 @@ media/                 Public illustration video
 The app is prepared to run on a Cloudflare Worker with a managed D1 database through Sites. The build produces `dist/server/index.js`, client assets, and the logical database manifest. The production deployment applies the checked-in migrations. No database secrets or session tokens are committed.
 
 The `.openai/hosting.json` project ID identifies the team's deployment. A fork should create its own deployment and database instead of attempting to publish to that ID. The standard build can also be adapted to an independently owned Cloudflare Worker and D1 binding.
+
+## Disclosures
+
+Declared under the Tech Zephyr 4.0 rulebook, which requires third-party libraries, APIs, frameworks, AI tools, UI templates and boilerplate to be disclosed.
+
+**Build window.** All work was done during the Round 1 window. The first commit follows the 12 September 2026 problem-statement release; the full commit history is in this repository.
+
+**Frameworks and libraries.** React 19 and TypeScript; Vinext with Vite for the Next-compatible app-route build; Cloudflare Workers as the runtime and Cloudflare D1 (managed SQLite) for persistence; Drizzle ORM and drizzle-kit for schema and migrations; Tailwind CSS v4 for styling; `lucide-react` for interface icons; `clsx` and `tailwind-merge` for class composition. These are the packages the application actually imports. Licenses ship in `vendor/` and `build/`.
+
+**Starter scaffold.** The project began from the Sites/Vinext starter template, which is why `package.json` still lists scaffold dependencies the application does not import, and why `vendor/shadcn-tailwind-4.13.0.css` and `build/sites-vite-plugin.ts` carry their upstream license files. The starter's unused shadcn/ui component kit, example pages and hook samples were **not** carried into this repository. Every file under `app/`, `lib/`, `db/`, `drizzle/`, `tests/` and `docs/` was written for this hackathon.
+
+**AI tools.** The code was written with AI coding assistance, reviewed by the team. The artwork in `public/realm.webp` is original AI-generated art produced for this project; its exact prompt and provenance are recorded in [docs/ASSETS.md](docs/ASSETS.md). No stock assets, paid assets or copied game sprites are used.
+
+**External services and APIs.** None. The application calls no third-party API and needs no API key, AI key or external identity provider. The only external dependency is the hosting platform itself (a Cloudflare Worker and its D1 database).
+
+**Data.** There is no seeded, scraped or fabricated dataset. Every account is created by its own user, and all progression is computed from that account's own ledger.
 
 ## Scope and credits
 

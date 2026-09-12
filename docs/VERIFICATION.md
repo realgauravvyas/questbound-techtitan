@@ -15,3 +15,7 @@ A repeatable local runtime failure after an early rejected POST was fixed by con
 These are reproducible prototype checks, not a penetration-test certification or production-scale load testing. Demonstration accounts contain synthetic, manually entered example activity. No real-world productivity outcomes are claimed.
 
 The final captioned MP4 was verified at 154.63 seconds and 6,151,569 bytes (about 6.15 MB), within the required 90-180 seconds and below 100 MB. Frames from the introduction, level-up, and persistence sections were visually inspected.
+
+## Fresh-clone check
+
+The published repository was verified from a clean `git clone` on September 13, 2026, using only the committed files: `npm ci` installed 674 packages, `npm run build` produced the Worker bundle and client assets, `npx tsc --noEmit` reported no errors, both game-rule tests passed, and all 24 API integration checks passed against the built production Worker on a freshly migrated database. The starter template's unused component kit is not committed and is not needed for this to succeed.
