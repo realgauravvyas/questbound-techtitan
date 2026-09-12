@@ -46,7 +46,7 @@ node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1
 npm start -- --port 5173
 ```
 
-Open the local address printed by the server (normally http://127.0.0.1:5173). Create your own account. Run the migration once on a fresh local database; do not replay it on an existing database. Local SQLite data lives in `.wrangler/state`, which is excluded from Git.
+Until publication, extract the supplied source ZIP and begin the commands at npm ci from that folder. Open the local address printed by the server (normally http://127.0.0.1:5173). Create your own account. Run the migration once on a fresh local database; do not replay it on an existing database. Local SQLite data lives in `.wrangler/state`, which is excluded from Git.
 
 `.env.example` explains the configuration. The app needs a `DB` D1 binding, supplied by the local runtime or hosting platform. It does **not** use a browser-only database or a hardcoded shared user.
 
@@ -62,7 +62,7 @@ node --experimental-strip-types --test tests/game.test.mjs
 npx tsc --noEmit
 ```
 
-API checks create synthetic test accounts and verify isolation, input validation, duplicate/concurrent completion, concurrent purchase, immutable rewards, insufficient funds, cross-origin rejection, logout and login persistence. Test passwords are demonstration-only. The UI has also been exercised using the browser test in `tests/browser-check.mjs`; its runtime package path is specific to the authoring environment and should be changed to your installed Playwright path before reuse.
+API checks create synthetic test accounts and verify isolation, input validation, duplicate/concurrent completion, concurrent purchase, immutable rewards, insufficient funds, cross-origin rejection, logout and login persistence. Test passwords are demonstration-only. The UI has also been exercised using the browser test in `tests/browser-check.mjs`; install Playwright locally with npm install --no-save playwright and npx playwright install chromium to rerun it. PLAYWRIGHT_MODULE can optionally point to an existing Playwright installation.
 
 ## How the game works
 
@@ -92,7 +92,7 @@ media/                 Public illustration video
 
 ## Deployment
 
-The submitted app runs on a Cloudflare Worker with a managed D1 database through Sites. The build produces `dist/server/index.js`, client assets, and the logical database manifest. The production deployment applies the checked-in migrations. No database secrets or session tokens are committed.
+The app is prepared to run on a Cloudflare Worker with a managed D1 database through Sites. The build produces `dist/server/index.js`, client assets, and the logical database manifest. The production deployment applies the checked-in migrations. No database secrets or session tokens are committed.
 
 The `.openai/hosting.json` project ID identifies the team's deployment. A fork should create its own deployment and database instead of attempting to publish to that ID. The standard build can also be adapted to an independently owned Cloudflare Worker and D1 binding.
 
@@ -101,4 +101,5 @@ The `.openai/hosting.json` project ID identifies the team's deployment. A fork s
 This submission was built with AI coding assistance and original AI-generated fantasy artwork. Lucide supplies the interface icons; the build scaffold uses the included open-source packages and license files. The team should review the code and rehearse the architecture explanation before presenting.
 
 Known MVP boundaries: no email verification/password recovery, no recurring-task scheduler or external activity verification, and no offline write queue. State queries currently read the user's complete history; pagination and aggregate caching would be needed at larger scale. The password hashing parameters and rate-limit tradeoffs are documented in the architecture notes. No claim of guaranteed qualification, winning, or measured productivity improvement is made.
+
 

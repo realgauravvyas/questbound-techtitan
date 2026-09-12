@@ -30,9 +30,9 @@ React 19, TypeScript and Next-compatible app routes built with Cloudflare Vinext
 
 The browser cannot directly set XP, gold, attributes, or streaks. Those values are derived from the ledger. A completion is a single atomic `INSERT ... SELECT` from an owned, active task. The server chooses its XP and gold. A purchase checks available balance and inserts the debit within one serialized SQL statement. Retries and concurrent requests cannot mint duplicate rewards or overspend. Completed tasks cannot be edited; archiving retains their completion evidence.
 
-Every personal-data query uses the authenticated user ID from the server session. Task IDs alone provide no authority. Passwords use PBKDF2-SHA256 with a per-account random salt and 100,000 iterations, the Workers Web Crypto iteration ceiling. Session cookies are HttpOnly and SameSite=Lax, with Secure on HTTPS; only token hashes are stored. Writes require a custom header and reject foreign Origins. Passwords, cookies, request bodies, and tokens are never intentionally logged. HTML rendering escapes user-provided text.
+Every personal-data query uses the authenticated user ID from the server session. Task IDs alone provide no authority. Passwords use PBKDF2-SHA256 with a per-account random salt and 100,000 iterations in this prototype. Session cookies are HttpOnly and SameSite=Lax, with Secure on HTTPS; only token hashes are stored. Writes require a custom header and reject foreign Origins. Passwords, cookies, request bodies, and tokens are never intentionally logged. HTML rendering escapes user-provided text.
 
-The MVP has no email verification or password recovery. The UI never claims that an email is verified. Password hashing is constrained by this runtime; a hardened production identity service would be the next security improvement. Authentication attempts are limited to 30 per IP and email in 15 minutes. This can affect groups sharing an IP and is intentionally documented. No real-world task completion can be independently proved: the app trusts the user to report their effort honestly, while protecting the reward math.
+The MVP has no email verification or password recovery. The UI never claims that an email is verified. A hardened production identity service with stronger password-hashing parameters and account recovery would be the next security improvement. Authentication attempts are limited to 30 per IP and email in 15 minutes. This can affect groups sharing an IP and is intentionally documented. No real-world task completion can be independently proved: the app trusts the user to report their effort honestly, while protecting the reward math.
 
 ## Progression
 
@@ -49,3 +49,4 @@ The Emerald Expanse theme uses original AI-assisted pixel artwork, an emerald jo
 ## Scale boundaries
 
 This is a hackathon MVP. The API loads each account's history to derive state, and accepts up to 1,000 visible tasks. Large histories would need pagination and transactional aggregate caching. Production cleanup of expired sessions and rate-limit rows is future maintenance work. The cap is a usability limit rather than a security boundary under concurrent task creation. There is no fabricated clinical, customer, or business dataset and no claim of measured real-world productivity gains.
+

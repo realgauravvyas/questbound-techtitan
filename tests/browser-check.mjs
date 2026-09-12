@@ -1,8 +1,8 @@
 import { createRequire } from 'node:module';
 import { mkdirSync, existsSync, writeFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
-const require=createRequire('C:/Users/Gaurav/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/');
-const {chromium}=require('playwright');
+const require=createRequire(import.meta.url);
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const executablePath=['C:/Program Files/Google/Chrome/Application/chrome.exe','C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'].find(existsSync);
 const browser=await chromium.launch({headless:true,executablePath});
 const context=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:1});
@@ -66,4 +66,5 @@ assert.deepEqual(errors,[],'no unhandled runtime errors');
 writeFileSync('work/qa/browser-results.json',JSON.stringify({passed:true,checks:['signup','create','edit','complete','level up','buy and equip','refresh persistence','history','mobile journal','mobile shop','offline input preserved and retry'],runtimeErrors:errors},null,2));
 console.log('PASS browser workflows, mobile widths, offline recovery, and no runtime errors');
 await browser.close();
+
 

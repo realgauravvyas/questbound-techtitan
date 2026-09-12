@@ -13,3 +13,5 @@ The security suite verifies six simultaneous completion requests award 100 XP on
 A repeatable local runtime failure after an early rejected POST was fixed by consuming the request body before validation and draining unread bodies at error boundaries. The full API suite passed after this change. Session revocation retains an expired session record rather than deleting it.
 
 These are reproducible prototype checks, not a penetration-test certification or production-scale load testing. Demonstration accounts contain synthetic, manually entered example activity. No real-world productivity outcomes are claimed.
+
+The final captioned MP4 was verified at 154.63 seconds and 6,151,569 bytes (about 6.15 MB), within the required 90-180 seconds and below 100 MB. Frames from the introduction, level-up, and persistence sections were visually inspected.
