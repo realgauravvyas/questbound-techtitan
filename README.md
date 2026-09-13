@@ -4,11 +4,34 @@
 
 Turn daily intentions into quests. Earn experience and gold, grow four character attributes, build a daily streak, and unlock rewards in an illustrated fantasy journal.
 
+**[▶ Watch the demo video](media/TechTitan_video_web.mp4)** (2:35, 6.15 MB) · Live application: not yet publicly reachable — see [Submission](#submission).
+
 | Team member | Role |
 | --- | --- |
 | Gaurav Vyas | Team leader |
 | Utkarsh Umang | Team member |
 | Shivam Salve | Team member |
+
+## Screenshots
+
+<p align="center">
+  <img src="media/screenshots/landing-signup.png" alt="Questbound sign-up screen: an illustrated fantasy landscape beside a character creation form" width="100%">
+</p>
+
+<p align="center">
+  <img src="media/screenshots/quest-journal.png" alt="Quest journal dashboard showing today's quests, streak, XP and attribute progress" width="100%">
+</p>
+
+<table>
+<tr>
+<td width="50%"><img src="media/screenshots/character-sheet.png" alt="Character sheet showing level, badges and the four attributes"></td>
+<td width="50%"><img src="media/screenshots/level-up.png" alt="Level-up celebration dialog"></td>
+</tr>
+<tr>
+<td width="50%"><img src="media/screenshots/mobile-journal.png" alt="Quest journal on a mobile viewport" width="280"></td>
+<td width="50%"><img src="media/screenshots/mobile-marketplace.png" alt="Gold marketplace on a mobile viewport" width="280"></td>
+</tr>
+</table>
 
 ## Submission
 
@@ -88,7 +111,7 @@ drizzle/               Versioned schema migrations
 public/                Optimized original artwork and favicon
 tests/                 API, game rule and browser checks
 docs/                  Architecture, tradeoffs and demo script
-media/                 Public illustration video
+media/                 Demonstration video and README screenshots
 ```
 
 ## Deployment
