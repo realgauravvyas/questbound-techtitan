@@ -4,7 +4,7 @@
 
 Turn daily intentions into quests. Earn experience and gold, grow four character attributes, build a daily streak, and unlock rewards in an illustrated fantasy journal.
 
-**[▶ Watch the demo video](media/TechTitan_video_web.mp4)** (2:35, 6.15 MB) · Live application: not yet publicly reachable — see [Submission](#submission).
+**[▶ Watch the demo video](media/TechTitan_video_web.mp4)** (2:35, 6.15 MB) · **[▶ Open the live application](https://questbound-techtitan.tender-elm-5517.chatgpt.site)**
 
 | Team member | Role |
 | --- | --- |
@@ -37,7 +37,7 @@ Turn daily intentions into quests. Earn experience and gold, grow four character
 
 - **Problem:** Life RPG, the official Round 1 Web Hackathon brief.
 - **Repository:** https://github.com/realgauravvyas/questbound-techtitan
-- **Live application:** not yet publicly reachable. The existing Sites deployment at `questbound-techtitan.tender-elm-5517.chatgpt.site` currently answers `401 Sign in required`, so it is not judge-accessible. See [Deployment](#deployment) for how to publish a public URL; this line will carry that URL once it is live.
+- **Live application:** https://questbound-techtitan.tender-elm-5517.chatgpt.site — the Sites deployment running on a Cloudflare Worker with managed D1 storage.
 - **Demonstration video:** [TechTitan video](media/TechTitan_video_web.mp4) (2:35, 6.15 MB)
 - **Run it yourself:** [Run locally](#run-locally) — a clean clone needs only Node.js and npm, with no API key or paid account.
 - [System architecture and security decisions](docs/ARCHITECTURE.md)
