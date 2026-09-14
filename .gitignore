@@ -46,3 +46,8 @@ next-env.d.ts
 /.codex/
 /outputs/
 /work/
+
+
+# internal prep notes, kept local
+docs/DEMO-SCRIPT.md
+docs/VERIFICATION.md

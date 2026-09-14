@@ -41,8 +41,6 @@ Turn daily intentions into quests. Earn experience and gold, grow four character
 - **Demonstration video:** [TechTitan video](media/TechTitan_video_web.mp4) (2:35, 6.15 MB)
 - **Run it yourself:** [Run locally](#run-locally) — a clean clone needs only Node.js and npm, with no API key or paid account.
 - [System architecture and security decisions](docs/ARCHITECTURE.md)
-- [Video narration and workflow](docs/DEMO-SCRIPT.md)
-- [Verification report](docs/VERIFICATION.md)
 - [Artwork provenance](docs/ASSETS.md)
 
 ## What works
